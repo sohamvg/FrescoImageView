@@ -15,104 +15,118 @@ public interface FrescoController {
     public static final String FILE_PERFIX = "file://";
 
     /**
-     * 加载网络图片
+     * 加载网络图片.
+     *
      * @param lowUrl 低分辨率图片
      * @param url 网络图片
      * @param defaultResID 默认图
      */
-    public void loadView(String lowUrl ,String url, int defaultResID);
+    public void loadView(String lowUrl, String url, int defaultResID);
 
     /**
-     * 加载网络图片
+     * 加载网络图片.
+     *
      * @param url 网络图片
      * @param defaultResID 默认图
      */
     public void loadView(String url, int defaultResID);
 
     /**
-     * 加载本地图片
+     * 加载本地图片.
+     *
      * @param path 图片路劲
      * @param defaultRes 默认图
      */
     public void loadLocalImage(String path, int defaultRes);
 
     /**
-     * 将该Fresco处理为圆形
+     * 将该Fresco处理为圆形.
      */
     public void asCircle();
 
     /**
-     * 用一种颜色来遮挡View以实现圆形，在一些内存较低的机器上推荐使用
-     * @param overlay_color
+     * 用一种颜色来遮挡View以实现圆形，在一些内存较低的机器上推荐使用.
+     *
+     * @param overlay_color int
      */
     public void setCircle(int overlay_color);
 
     /**
-     * 设置圆角
-     * @param radius
+     * 设置圆角.
+     *
+     * @param radius float
      */
     public void setCornerRadius(float radius);
 
     /**
-     * 用一种颜色来遮挡View以实现圆角，在一些内存较低的机器上推荐使用
-     * @param radius
-     * @param overlay_color
+     * 用一种颜色来遮挡View以实现圆角，在一些内存较低的机器上推荐使用.
+     *
+     * @param radius float
+     * @param overlay_color int
      */
     public void setCornerRadius(float radius, int overlay_color);
 
     /**
-     * 设置边框
-     * @param color
-     * @param width
+     * 设置边框.
+     *
+     * @param color int
+     * @param width float
      */
     public void setBorder(int color, float width);
 
     /**
-     * 清除所使用的RoundingParams
+     * 清除所使用的RoundingParams.
      */
     public void clearRoundingParams();
 
     /**
-     * 设置RoundingParams
-     * @param roundingParmas
+     * 设置RoundingParams.
+     *
+     * @param roundingParmas RoundingParams
      */
     public void setRoundingParmas(RoundingParams roundingParmas);
 
     /**
-     * 设置下载监听器
-     * @param controllerListener
+     * 设置下载监听器.
+     *
+     * @param controllerListener ControllerListener
      */
     public void setControllerListener(ControllerListener controllerListener);
 
 
     /**
-     * 设置后处理
-     * @param postProcessor
+     * 设置后处理.
+     *
+     * @param postProcessor Postprocessor
      */
     public void setPostProcessor(Postprocessor postProcessor);
 
 
     /**
-     * 是否开启动画
-     * @param anim
+     * 是否开启动画.
+     *
+     * @param anim boolean
      */
     public void setAnim(boolean anim);
 
     /**
-     * 是否可以点击重试
-     * @param tapToRetryEnabled
+     * 是否可以点击重试.
+     *
+     * @param tapToRetryEnabled boolean
      */
     public void setTapToRetryEnabled(boolean tapToRetryEnabled);
 
     /**
-     * 是否自动旋转
-     * @param autoRotateEnabled
+     * 是否自动旋转.
+     *
+     * @param autoRotateEnabled boolean
      */
     public void setAutoRotateEnabled(boolean autoRotateEnabled);
 
     /**
-     * 设置图片缩放type
-     * @param scaleType
+     * 设置图片缩放type.
+     *
+     * @param scaleType ScaleType
      */
     public void setActualImageScaleType(ScalingUtils.ScaleType scaleType);
 

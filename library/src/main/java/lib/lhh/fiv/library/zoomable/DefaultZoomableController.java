@@ -81,7 +81,10 @@ public class DefaultZoomableController
         return mIsEnabled;
     }
 
-    /** Sets whether the rotation gesture is enabled or not. */
+    /** Sets whether the rotation gesture is enabled or not.
+     *
+     * @param enabled boolean
+     */
     public void setRotationEnabled(boolean enabled) {
         mIsRotationEnabled = enabled;
     }
@@ -91,7 +94,10 @@ public class DefaultZoomableController
         return  mIsRotationEnabled;
     }
 
-    /** Sets whether the scale gesture is enabled or not. */
+    /** Sets whether the scale gesture is enabled or not.
+     *
+     * @param enabled boolean
+     */
     public void setScaleEnabled(boolean enabled) {
         mIsScaleEnabled = enabled;
     }
@@ -101,7 +107,10 @@ public class DefaultZoomableController
         return  mIsScaleEnabled;
     }
 
-    /** Sets whether the translation gesture is enabled or not. */
+    /** Sets whether the translation gesture is enabled or not.
+     *
+     * @param enabled boolean
+     */
     public void setTranslationEnabled(boolean enabled) {
         mIsTranslationEnabled = enabled;
     }
@@ -140,9 +149,11 @@ public class DefaultZoomableController
 
     /**
      * Sets the minimum scale factor allowed.
-     * <p>
-     * Note that the hierarchy performs scaling as well, which
+     *
+     * <p>Note that the hierarchy performs scaling as well, which
      * is not accounted here, so the actual scale factor may differ.
+     *
+     * @param minScaleFactor float
      */
     public void setMinScaleFactor(float minScaleFactor) {
         mMinScaleFactor = minScaleFactor;
@@ -155,9 +166,11 @@ public class DefaultZoomableController
 
     /**
      * Sets the maximum scale factor allowed.
-     * <p>
-     * Note that the hierarchy performs scaling as well, which
+     *
+     * <p>Note that the hierarchy performs scaling as well, which
      * is not accounted here, so the actual scale factor may differ.
+     *
+     * @param maxScaleFactor float
      */
     public void setMaxScaleFactor(float maxScaleFactor) {
         mMaxScaleFactor = maxScaleFactor;
@@ -166,6 +179,8 @@ public class DefaultZoomableController
     /**
      * Maps point from the view's to the image's relative coordinate system.
      * This takes into account the zoomable transformation.
+     *
+     * @param viewPoint Point
      */
     public Point mapViewToImage(Point viewPoint) {
         float[] points = mTempValues;
@@ -180,6 +195,8 @@ public class DefaultZoomableController
     /**
      * Maps point from the image's relative to the view's coordinate system.
      * This takes into account the zoomable transformation.
+     *
+     * @param imagePoint Point
      */
     public Point mapImageToView(Point imagePoint) {
         float[] points = mTempValues;
@@ -215,6 +232,8 @@ public class DefaultZoomableController
 
     /**
      * Sets the zoomable transformation. Cancels the current gesture if one is happening.
+     *
+     * @param activeTransform Matrix
      */
     public void setTransform(Matrix activeTransform) {
         if (mGestureDetector.isGestureInProgress()) {
@@ -232,6 +251,12 @@ public class DefaultZoomableController
         return false;
     }
 
+    /**
+     * function zoomToImagePoint.
+     *
+     * @param scale float
+     * @param imagePoint Point
+     */
     public void zoomToImagePoint(float scale, Point imagePoint) {
         if (mGestureDetector.isGestureInProgress()) {
             mGestureDetector.reset();

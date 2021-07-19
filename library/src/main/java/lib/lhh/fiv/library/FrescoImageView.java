@@ -22,17 +22,17 @@ import ohos.utils.net.Uri;
 /**
  * Created by Linhh on 16/2/18.
  */
-public class FrescoImageView extends SimpleDraweeView implements FrescoController,BaseFrescoImageView{
+public class FrescoImageView extends SimpleDraweeView implements FrescoController, BaseFrescoImageView {
 
     private String mThumbnailUrl = null;
 
-    private String mLowThumbnailUrl = null;//低分辨率Url
+    private String mLowThumbnailUrl = null; //低分辨率Url
 
     private int  mDefaultResID = 0;
 
     private ImageRequest mRequest;
 
-    private boolean mAnim = true;//默认开启动画
+    private boolean mAnim = true; //默认开启动画
 
     private String mThumbnailPath = null;
 
@@ -64,7 +64,7 @@ public class FrescoImageView extends SimpleDraweeView implements FrescoControlle
         super(context, attrs, defStyle);
     }
 
-    private void setResourceController(){
+    private void setResourceController() {
 
         mRequest = FrescoFactory.buildImageRequestWithResource(this);
 
@@ -73,7 +73,7 @@ public class FrescoImageView extends SimpleDraweeView implements FrescoControlle
         this.setController(mController);
     }
 
-    private void setSourceController(){
+    private void setSourceController() {
 
         mRequest = FrescoFactory.buildImageRequestWithSource(this);
 
@@ -82,6 +82,34 @@ public class FrescoImageView extends SimpleDraweeView implements FrescoControlle
         mController = FrescoFactory.buildDraweeController(this);
 
         this.setController(mController);
+    }
+
+    /**
+     * Function to load Gif from Url.
+     *
+     * @param url Gif url
+     */
+    public void loadGifView(String url) {
+        Uri uri = Uri.parse(url);
+        final PipelineDraweeControllerBuilder controllerBuilder =
+                Fresco.newDraweeControllerBuilder()
+                        .setAutoPlayAnimations(true)
+                        .setOldController(this.getController());
+        final ImageDecodeOptionsBuilder optionsBuilder =
+                ImageDecodeOptions.newBuilder().setMaxDimensionPx(4000);
+
+        GifDecoder mGifDecoder = new GifDecoder();
+        optionsBuilder.setCustomImageDecoder(mGifDecoder);
+
+        controllerBuilder.setImageRequest(
+                ImageRequestBuilder.newBuilderWithSource(uri)
+                        .setImageDecodeOptions(optionsBuilder.build())
+                        .build());
+
+        this.getHierarchy().setOverlayImage(null);
+
+        this.setController(controllerBuilder.build());
+
     }
 
     @Override
@@ -110,32 +138,9 @@ public class FrescoImageView extends SimpleDraweeView implements FrescoControlle
             this.getHierarchy().setPlaceholderImage(defaultResID);
             this.setResourceController();
 
-        }catch (OutOfMemoryError e){
+        } catch (OutOfMemoryError e) {
             e.printStackTrace();
         }
-    }
-
-    public void loadGifView(String url) {
-        Uri uri = Uri.parse(url);
-        final PipelineDraweeControllerBuilder controllerBuilder =
-                Fresco.newDraweeControllerBuilder()
-                        .setAutoPlayAnimations(true)
-                        .setOldController(this.getController());
-        final ImageDecodeOptionsBuilder optionsBuilder =
-                ImageDecodeOptions.newBuilder().setMaxDimensionPx(4000);
-
-        GifDecoder mGifDecoder = new GifDecoder();
-        optionsBuilder.setCustomImageDecoder(mGifDecoder);
-
-        controllerBuilder.setImageRequest(
-                ImageRequestBuilder.newBuilderWithSource(uri)
-                        .setImageDecodeOptions(optionsBuilder.build())
-                        .build());
-
-        this.getHierarchy().setOverlayImage(null);
-
-        this.setController(controllerBuilder.build());
-
     }
 
     @Override
@@ -161,7 +166,7 @@ public class FrescoImageView extends SimpleDraweeView implements FrescoControlle
                 mThumbnailPath = FrescoController.FILE_PERFIX + mThumbnailPath;
             }
             this.setSourceController();
-        }catch (OutOfMemoryError e){
+        } catch (OutOfMemoryError e) {
             e.printStackTrace();
         }
     }
@@ -239,7 +244,7 @@ public class FrescoImageView extends SimpleDraweeView implements FrescoControlle
     @Override
     public RoundingParams getRoundingParams() {
         RoundingParams roundingParams = this.getHierarchy().getRoundingParams();
-        if(roundingParams == null){
+        if (roundingParams == null) {
             roundingParams = new RoundingParams();
         }
         return roundingParams;
@@ -257,9 +262,9 @@ public class FrescoImageView extends SimpleDraweeView implements FrescoControlle
 
     @Override
     public void setCircle(int overlay_color) {
-        setRoundingParmas(getRoundingParams().setRoundAsCircle(true).
-                setRoundingMethod(RoundingParams.RoundingMethod.OVERLAY_COLOR).
-                setOverlayColor(overlay_color));
+        setRoundingParmas(getRoundingParams().setRoundAsCircle(true)
+                .setRoundingMethod(RoundingParams.RoundingMethod.OVERLAY_COLOR)
+                .setOverlayColor(overlay_color));
     }
 
     @Override
@@ -269,9 +274,9 @@ public class FrescoImageView extends SimpleDraweeView implements FrescoControlle
 
     @Override
     public void setCornerRadius(float radius, int overlay_color) {
-        setRoundingParmas(getRoundingParams().setCornersRadius(radius).
-                setRoundingMethod(RoundingParams.RoundingMethod.OVERLAY_COLOR).
-                setOverlayColor(overlay_color));
+        setRoundingParmas(getRoundingParams().setCornersRadius(radius)
+                .setRoundingMethod(RoundingParams.RoundingMethod.OVERLAY_COLOR)
+                .setOverlayColor(overlay_color));
     }
 
     @Override

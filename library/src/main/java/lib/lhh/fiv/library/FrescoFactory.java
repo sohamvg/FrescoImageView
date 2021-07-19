@@ -13,7 +13,13 @@ import ohos.utils.net.Uri;
  */
 public class FrescoFactory {
 
-    public static DraweeController buildDraweeController(BaseFrescoImageView fresco){
+    /**
+     * function buildDraweeController.
+     *
+     * @param fresco BaseFrescoImageView
+     * @return DraweeController
+     */
+    public static DraweeController buildDraweeController(BaseFrescoImageView fresco) {
         return Fresco.newDraweeControllerBuilder()
                 .setImageRequest(fresco.getImageRequest())
                 .setAutoPlayAnimations(fresco.isAnim())
@@ -24,32 +30,48 @@ public class FrescoFactory {
                 .build();
     }
 
-    public static ImageRequest buildImageRequestWithResource(BaseFrescoImageView fresco){
+    /**
+     * function buildImageRequestWithResource.
+     *
+     * @param fresco BaseFrescoImageView
+     * @return ImageRequest
+     */
+    public static ImageRequest buildImageRequestWithResource(BaseFrescoImageView fresco) {
         return  ImageRequestBuilder.newBuilderWithResourceId(fresco.getDefaultResID())
                 .setPostprocessor(fresco.getPostProcessor())
-//                .setAutoRotateEnabled(fresco.getAutoRotateEnabled())
                 .setLocalThumbnailPreviewsEnabled(true)
                 .build();
     }
 
-    public static ImageRequest buildImageRequestWithSource(BaseFrescoImageView fresco){
+    /**
+     * function buildImageRequestWithSource.
+     *
+     * @param fresco BaseFrescoImageView
+     * @return ImageRequest
+     */
+    public static ImageRequest buildImageRequestWithSource(BaseFrescoImageView fresco) {
         String thumbnail = null;
-        if(TextUtils.isEmpty(fresco.getThumbnailUrl())){
+        if (TextUtils.isEmpty(fresco.getThumbnailUrl())) {
             thumbnail = fresco.getThumbnailPath();
-        }else{
+        } else {
             thumbnail = fresco.getThumbnailUrl();
         }
         Uri uri = Uri.parse(thumbnail);
         return  ImageRequestBuilder.newBuilderWithSource(uri)
                 .setPostprocessor(fresco.getPostProcessor())
-//                .setAutoRotateEnabled(fresco.getAutoRotateEnabled())
                 .setLocalThumbnailPreviewsEnabled(true)
                 .build();
     }
 
-    public static ImageRequest buildLowImageRequest(BaseFrescoImageView fresco){
+    /**
+     * function buildLowImageRequest.
+     *
+     * @param fresco BaseFrescoImageView
+     * @return ImageRequest
+     */
+    public static ImageRequest buildLowImageRequest(BaseFrescoImageView fresco) {
         String lowThumbnail = null;
-        if(TextUtils.isEmpty(fresco.getLowThumbnailUrl())){
+        if (TextUtils.isEmpty(fresco.getLowThumbnailUrl())) {
             return null;
         }
         lowThumbnail = fresco.getLowThumbnailUrl();

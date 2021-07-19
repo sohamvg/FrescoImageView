@@ -12,79 +12,91 @@ import com.facebook.imagepipeline.request.Postprocessor;
 public interface BaseFrescoImageView {
 
     /**
-     * 获得当前监听
-     * @return
+     * 获得当前监听.
+     *
+     * @return ControllerListener
      */
     public ControllerListener getControllerListener();
 
     /**
-     * 获得当前使用的DraweeController
-     * @return
+     * 获得当前使用的DraweeController.
+     *
+     * @return DraweeController
      */
     public DraweeController getDraweeController();
 
     /**
-     * 获得低级别ImageRequest
-     * @return
+     * 获得低级别ImageRequest.
+     *
+     * @return ImageRequest
      */
     public ImageRequest getLowImageRequest();
 
     /**
-     * 获得当前使用的ImageRequest
-     * @return
+     * 获得当前使用的ImageRequest.
+     *
+     * @return ImageRequest
      */
     public ImageRequest getImageRequest();
 
     /**
-     * 获得当前使用的RoundingParams
+     * 获得当前使用的RoundingParams.
      */
     public RoundingParams getRoundingParams();
 
     /**
-     * 是否开启动画
-     * @return
+     * 是否开启动画.
+     *
+     * @return boolean
      */
     public boolean isAnim();
 
     /**
-     * 获得当前后处理
-     * @return
+     * 获得当前后处理.
+     *
+     * @return Postprocessor
      */
     public Postprocessor getPostProcessor();
 
     /**
-     * 获得当前使用的默认图
-     * @return
+     * 获得当前使用的默认图.
+     *
+     * @return int
      */
     public int getDefaultResID();
 
     /**
-     * 获得当前加载的图片
-     * @return
+     * 获得当前加载的图片.
+     *
+     * @return String
      */
     public String getThumbnailUrl();
 
     /**
-     * 获得当前低分辨率图片
-     * @return
+     * 获得当前低分辨率图片.
+     *
+     * @return String
      */
     public String getLowThumbnailUrl();
 
     /**
-     * 获得加载的本地图片
-     * @return
+     * 获得加载的本地图片.
+     *
+     * @return String
      */
     public String getThumbnailPath();
 
     /**
-     * 是否可以点击重试,默认false
-     * @return
+     * 是否可以点击重试,默认false.
+     *
+     * @return boolean
      */
     public boolean getTapToRetryEnabled();
 
     /**
-     * 是否自动旋转
-     * @return
+     * 是否自动旋转.
+     *
+     * @return boolean
      */
     public boolean getAutoRotateEnabled();
 }

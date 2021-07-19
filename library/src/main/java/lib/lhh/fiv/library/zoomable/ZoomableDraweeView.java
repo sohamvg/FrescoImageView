@@ -44,8 +44,8 @@ import ohos.multimodalinput.event.TouchEvent;
 
 /**
  * DraweeView that has zoomable capabilities.
- * <p>
- * Once the image loads, pinch-to-zoom and translation gestures are enabled.
+ *
+ * <p>Once the image loads, pinch-to-zoom and translation gestures are enabled.
  *
  */
 public class ZoomableDraweeView extends GenericDraweeView
@@ -93,6 +93,11 @@ public class ZoomableDraweeView extends GenericDraweeView
         mZoomableController.setListener(this);
     }
 
+    /**
+     * function zoomableController.
+     *
+     * @param zoomableController ZoomableController
+     */
     public void setZoomableController(ZoomableController zoomableController) {
         Preconditions.checkNotNull(zoomableController);
         mZoomableController.setListener(null);
@@ -101,7 +106,7 @@ public class ZoomableDraweeView extends GenericDraweeView
     }
 
     @Override
-    public void setController( DraweeController controller) {
+    public void setController(DraweeController controller) {
         setControllers(controller, null);
     }
 
@@ -117,7 +122,7 @@ public class ZoomableDraweeView extends GenericDraweeView
     /**
      * Sets the controllers for the normal and huge image.
      *
-     * <p> IMPORTANT: in order to avoid a flicker when switching to the huge image, the huge image
+     * <p>IMPORTANT: in order to avoid a flicker when switching to the huge image, the huge image
      * controller should have the normal-image-uri set as its low-res-uri.
      *
      * @param controller controller to be initially used
@@ -132,8 +137,8 @@ public class ZoomableDraweeView extends GenericDraweeView
     }
 
     private void maybeSetHugeImageController() {
-        if (mHugeImageController != null &&
-                mZoomableController.getScaleFactor() > HUGE_IMAGE_SCALE_FACTOR_THRESHOLD) {
+        if (mHugeImageController != null
+                && mZoomableController.getScaleFactor() > HUGE_IMAGE_SCALE_FACTOR_THRESHOLD) {
             setControllersInternal(mHugeImageController, null);
         }
     }
@@ -170,7 +175,7 @@ public class ZoomableDraweeView extends GenericDraweeView
     @Override
     public boolean onTouchEvent(Component component, TouchEvent event) {
 
-        if(event.getAction() == TouchEvent.PRIMARY_POINT_DOWN){
+        if (event.getAction() == TouchEvent.PRIMARY_POINT_DOWN) {
             mCurrDownTime = event.getOccurredTime();
         }
 
@@ -180,10 +185,13 @@ public class ZoomableDraweeView extends GenericDraweeView
         return super.onTouchEvent(component, event);
     }
 
-    public void clearZoom(){
-        if(mZoomableController != null && mZoomableController instanceof DefaultZoomableController){
+    /**
+     * function clearZoom.
+     */
+    public void clearZoom() {
+        if (mZoomableController != null && mZoomableController instanceof DefaultZoomableController) {
             Point imagePoint = new Point((float) getWidth() / 2, (float) getHeight() / 2);
-            ((DefaultZoomableController)mZoomableController).zoomToImagePoint(1, imagePoint);
+            ((DefaultZoomableController) mZoomableController).zoomToImagePoint(1, imagePoint);
         }
     }
 

@@ -15,11 +15,11 @@ import ohos.app.Context;
 /**
  * Created by Linhh on 16/2/18.
  */
-public class FrescoZoomImageView extends ZoomableDraweeView implements FrescoController, BaseFrescoImageView{
+public class FrescoZoomImageView extends ZoomableDraweeView implements FrescoController, BaseFrescoImageView {
 
     private String mThumbnailUrl = null;
 
-    private String mLowThumbnailUrl = null;//低分辨率Url
+    private String mLowThumbnailUrl = null; //低分辨率Url
 
     private int  mDefaultResID = 0;
 
@@ -27,7 +27,7 @@ public class FrescoZoomImageView extends ZoomableDraweeView implements FrescoCon
 
     private String mThumbnailPath = null;
 
-    private boolean mAnim = true;//默认开启动画
+    private boolean mAnim = true; //默认开启动画
 
     private ImageRequest mLowResRequest;
 
@@ -53,7 +53,7 @@ public class FrescoZoomImageView extends ZoomableDraweeView implements FrescoCon
         super(context, attrs, defStyle);
     }
 
-    private void setResourceController(){
+    private void setResourceController() {
 
         mRequest = FrescoFactory.buildImageRequestWithResource(this);
 
@@ -62,7 +62,7 @@ public class FrescoZoomImageView extends ZoomableDraweeView implements FrescoCon
         this.setController(mController);
     }
 
-    private void setSourceController(){
+    private void setSourceController() {
 
         mRequest = FrescoFactory.buildImageRequestWithSource(this);
 
@@ -99,7 +99,7 @@ public class FrescoZoomImageView extends ZoomableDraweeView implements FrescoCon
             this.getHierarchy().setPlaceholderImage(defaultResID);
             this.setResourceController();
 
-        }catch (OutOfMemoryError e){
+        } catch (OutOfMemoryError e) {
             e.printStackTrace();
         }
     }
@@ -127,7 +127,7 @@ public class FrescoZoomImageView extends ZoomableDraweeView implements FrescoCon
                 mThumbnailPath = FrescoController.FILE_PERFIX + mThumbnailPath;
             }
             this.setSourceController();
-        }catch (OutOfMemoryError e){
+        } catch (OutOfMemoryError e) {
             e.printStackTrace();
         }
     }
@@ -205,7 +205,7 @@ public class FrescoZoomImageView extends ZoomableDraweeView implements FrescoCon
     @Override
     public RoundingParams getRoundingParams() {
         RoundingParams roundingParams = this.getHierarchy().getRoundingParams();
-        if(roundingParams == null){
+        if (roundingParams == null) {
             roundingParams = new RoundingParams();
         }
         return roundingParams;
@@ -223,9 +223,9 @@ public class FrescoZoomImageView extends ZoomableDraweeView implements FrescoCon
 
     @Override
     public void setCircle(int overlay_color) {
-        setRoundingParmas(getRoundingParams().setRoundAsCircle(true).
-                setRoundingMethod(RoundingParams.RoundingMethod.OVERLAY_COLOR).
-                setOverlayColor(overlay_color));
+        setRoundingParmas(getRoundingParams().setRoundAsCircle(true)
+                .setRoundingMethod(RoundingParams.RoundingMethod.OVERLAY_COLOR)
+                .setOverlayColor(overlay_color));
     }
 
     @Override
@@ -235,9 +235,9 @@ public class FrescoZoomImageView extends ZoomableDraweeView implements FrescoCon
 
     @Override
     public void setCornerRadius(float radius, int overlay_color) {
-        setRoundingParmas(getRoundingParams().setCornersRadius(radius).
-                setRoundingMethod(RoundingParams.RoundingMethod.OVERLAY_COLOR).
-                setOverlayColor(overlay_color));
+        setRoundingParmas(getRoundingParams().setCornersRadius(radius)
+                .setRoundingMethod(RoundingParams.RoundingMethod.OVERLAY_COLOR)
+                .setOverlayColor(overlay_color));
     }
 
     @Override

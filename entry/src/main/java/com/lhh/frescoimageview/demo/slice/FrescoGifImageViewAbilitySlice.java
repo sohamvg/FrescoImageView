@@ -8,6 +8,9 @@ import ohos.agp.components.Text;
 import ohos.bundle.IBundleManager;
 import ohos.security.SystemPermission;
 
+/**
+ * FrescoGifImageViewAbilitySlice class.
+ */
 public class FrescoGifImageViewAbilitySlice extends AbilitySlice {
 
     @Override
@@ -19,8 +22,7 @@ public class FrescoGifImageViewAbilitySlice extends AbilitySlice {
 
         if (verifySelfPermission(SystemPermission.INTERNET) == IBundleManager.PERMISSION_GRANTED) {
             text.setText("Fresco Gif Image View");
-        }
-        else {
+        } else {
             text.setText("Internet not granted!");
             if (canRequestPermission(SystemPermission.INTERNET)) {
                 requestPermissionsFromUser(new String[] {SystemPermission.INTERNET}, 0);

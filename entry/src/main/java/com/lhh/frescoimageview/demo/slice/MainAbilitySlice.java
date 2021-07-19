@@ -5,6 +5,9 @@ import ohos.aafwk.ability.AbilitySlice;
 import ohos.aafwk.content.Intent;
 import ohos.agp.components.Button;
 
+/**
+ * MainAbilitySlice class.
+ */
 public class MainAbilitySlice extends AbilitySlice {
 
     Button mBtnFrescoNormal;
