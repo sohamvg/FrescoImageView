@@ -33,7 +33,6 @@ import com.facebook.drawee.drawable.Animatable;
 import com.facebook.drawee.interfaces.DraweeController;
 import com.facebook.drawee.view.GenericDraweeView;
 import com.oszc.bbhmlibrary.wrapper.RectF;
-import ohos.aafwk.ability.OnClickListener;
 import ohos.agp.components.AttrSet;
 import ohos.agp.components.Component;
 import ohos.agp.render.Canvas;
@@ -52,22 +51,42 @@ public class ZoomableDraweeView extends GenericDraweeView
         implements ZoomableController.Listener, Component.DrawTask {
 
     private static final float HUGE_IMAGE_SCALE_FACTOR_THRESHOLD = 1.1f;
+    private static final int TOUCH_TIME = 250; //触摸间隔时间
 
     private final RectF mImageBounds = new RectF();
     private final RectF mViewBounds = new RectF();
 
     private final ControllerListener<Object> mControllerListener = new BaseControllerListener<Object>() {
+
         @Override
         public void onFinalImageSet(
                 String id,
                 Object imageInfo,
                 Animatable animatable) {
-            ZoomableDraweeView.this.onFinalImageSet();
+            onFinalImageSet();
+        }
+
+        private void onFinalImageSet() {
+            if (!mZoomableController.isEnabled()) {
+                updateZoomableControllerBounds();
+                mZoomableController.setEnabled(true);
+            }
+        }
+
+        private void updateZoomableControllerBounds() {
+            getHierarchy().getActualImageBounds(mImageBounds);
+            mViewBounds.set(0, 0, getWidth(), getHeight());
+            mZoomableController.setImageBounds(mImageBounds);
+            mZoomableController.setViewBounds(mViewBounds);
+        }
+
+        private void onRelease() {
+            mZoomableController.setEnabled(false);
         }
 
         @Override
         public void onRelease(String id) {
-            ZoomableDraweeView.this.onRelease();
+            onRelease();
         }
     };
 
@@ -164,19 +183,27 @@ public class ZoomableDraweeView extends GenericDraweeView
         canvas.restoreToCount(saveCount);
     }
 
-    public OnClickListener mOnClickListener;
+    private ClickedListener mOnClickListener;
 
-    public void setOnDraweeClickListener(OnClickListener l) {
+    public void setOnDraweeClickListener(ClickedListener l) {
         mOnClickListener = l;
     }
 
-    public long mCurrDownTime = 0;
+    private long mCurrDownTime = 0;
 
     @Override
     public boolean onTouchEvent(Component component, TouchEvent event) {
 
         if (event.getAction() == TouchEvent.PRIMARY_POINT_DOWN) {
             mCurrDownTime = event.getOccurredTime();
+        }
+
+        if (event.getAction() == TouchEvent.PRIMARY_POINT_UP
+                && event.getOccurredTime() - mCurrDownTime <= TOUCH_TIME
+                && mOnClickListener != null) {
+            //点击
+            mOnClickListener.onClick(this);
+
         }
 
         if (mZoomableController.onTouchEvent(event)) {
@@ -195,16 +222,9 @@ public class ZoomableDraweeView extends GenericDraweeView
         }
     }
 
-    private void onFinalImageSet() {
-        if (!mZoomableController.isEnabled()) {
-            updateZoomableControllerBounds();
-            mZoomableController.setEnabled(true);
-        }
-    }
 
-    private void onRelease() {
-        mZoomableController.setEnabled(false);
-    }
+
+
 
     @Override
     public void onTransformChanged(Matrix transform) {
@@ -212,11 +232,6 @@ public class ZoomableDraweeView extends GenericDraweeView
         invalidate();
     }
 
-    private void updateZoomableControllerBounds() {
-        getHierarchy().getActualImageBounds(mImageBounds);
-        mViewBounds.set(0, 0, getWidth(), getHeight());
-        mZoomableController.setImageBounds(mImageBounds);
-        mZoomableController.setViewBounds(mViewBounds);
-    }
+
 
 }

@@ -10,12 +10,15 @@ import com.oszc.bbhmlibrary.wrapper.TextUtils;
 import lib.lhh.fiv.library.zoomable.ZoomableDraweeView;
 import ohos.agp.components.AttrSet;
 import ohos.app.Context;
+import ohos.hiviewdfx.HiLog;
+import ohos.hiviewdfx.HiLogLabel;
 
 
 /**
  * Created by Linhh on 16/2/18.
  */
 public class FrescoZoomImageView extends ZoomableDraweeView implements FrescoController, BaseFrescoImageView {
+    private static final HiLogLabel LABEL_LOG = new HiLogLabel(3, 0xD001100, "FrescoZoomImageView");
 
     private String mThumbnailUrl = null;
 
@@ -100,7 +103,7 @@ public class FrescoZoomImageView extends ZoomableDraweeView implements FrescoCon
             this.setResourceController();
 
         } catch (OutOfMemoryError e) {
-            e.printStackTrace();
+            HiLog.error(LABEL_LOG, e.getMessage());
         }
     }
 
@@ -128,7 +131,7 @@ public class FrescoZoomImageView extends ZoomableDraweeView implements FrescoCon
             }
             this.setSourceController();
         } catch (OutOfMemoryError e) {
-            e.printStackTrace();
+            HiLog.error(LABEL_LOG, e.getMessage());
         }
     }
 

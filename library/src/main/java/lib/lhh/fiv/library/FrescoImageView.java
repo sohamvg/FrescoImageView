@@ -17,12 +17,16 @@ import com.facebook.imagepipeline.request.Postprocessor;
 import com.oszc.bbhmlibrary.wrapper.TextUtils;
 import ohos.agp.components.AttrSet;
 import ohos.app.Context;
+import ohos.hiviewdfx.HiLog;
+import ohos.hiviewdfx.HiLogLabel;
 import ohos.utils.net.Uri;
 
 /**
  * Created by Linhh on 16/2/18.
  */
 public class FrescoImageView extends SimpleDraweeView implements FrescoController, BaseFrescoImageView {
+
+    private static final HiLogLabel LABEL_LOG = new HiLogLabel(3, 0xD001100, "FrescoImageView");
 
     private String mThumbnailUrl = null;
 
@@ -139,7 +143,7 @@ public class FrescoImageView extends SimpleDraweeView implements FrescoControlle
             this.setResourceController();
 
         } catch (OutOfMemoryError e) {
-            e.printStackTrace();
+            HiLog.error(LABEL_LOG, e.getMessage());
         }
     }
 
@@ -167,7 +171,7 @@ public class FrescoImageView extends SimpleDraweeView implements FrescoControlle
             }
             this.setSourceController();
         } catch (OutOfMemoryError e) {
-            e.printStackTrace();
+            HiLog.error(LABEL_LOG, e.getMessage());
         }
     }
 
