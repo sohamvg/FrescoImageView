@@ -93,29 +93,13 @@ public class MultiPointerGestureDetector {
         }
     }
 
-    private int getPressedPointerIndex(TouchEvent event, int i) {
-        final int count = event.getPointerCount();
-        final int action = event.getAction();
-        final int index = event.getIndex();
-        if (action == TouchEvent.PRIMARY_POINT_UP ||
-                action == TouchEvent.OTHER_POINT_UP) {
-            if (i >= index) {
-                i++;
-            }
-        }
-        return (i < count) ? i : -1;
-    }
-
     public boolean onTouchEvent(final TouchEvent event) {
         switch (event.getAction()) {
             case TouchEvent.POINT_MOVE: {
                 // update pointers
                 for (int i = 0; i < event.getPointerCount(); i++) {
-//                    int index = event.findPointerIndex(mId[i]);
-//                    if (index != -1) {
                         mCurrentX[i] = event.getPointerPosition(i).getX();
                         mCurrentY[i] = event.getPointerPosition(i).getY();
-//                    }
                 }
                 // start a new gesture if not already started
                 if (!mGestureInProgress && shouldStartGesture()) {
@@ -139,10 +123,6 @@ public class MultiPointerGestureDetector {
                 reset();
                 // update pointers
                 for (int i = 0; i < event.getPointerCount(); i++) {
-//                    int index = getPressedPointerIndex(event, i);
-//                    if (index == -1) {
-//                        break;
-//                    }
                     mId[i] = event.getPointerId(i);
                     mCurrentX[i] = mStartX[i] = event.getPointerPosition(i).getX();
                     mCurrentY[i] = mStartY[i] = event.getPointerPosition(i).getY();

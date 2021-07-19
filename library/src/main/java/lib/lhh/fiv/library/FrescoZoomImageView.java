@@ -8,7 +8,6 @@ import com.facebook.imagepipeline.request.ImageRequest;
 import com.facebook.imagepipeline.request.Postprocessor;
 import com.oszc.bbhmlibrary.wrapper.TextUtils;
 import lib.lhh.fiv.library.zoomable.ZoomableDraweeView;
-import ohos.agp.components.Attr;
 import ohos.agp.components.AttrSet;
 import ohos.app.Context;
 

@@ -4,7 +4,6 @@ import com.lhh.frescoimageview.demo.ResourceTable;
 import ohos.aafwk.ability.AbilitySlice;
 import ohos.aafwk.content.Intent;
 import ohos.agp.components.Button;
-import ohos.agp.components.Component;
 
 public class MainAbilitySlice extends AbilitySlice {
 

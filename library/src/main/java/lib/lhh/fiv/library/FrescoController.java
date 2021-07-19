@@ -10,9 +10,9 @@ import com.facebook.imagepipeline.request.Postprocessor;
  */
 public interface FrescoController {
 
-    public final static String HTTP_PERFIX = "http://";
-    public final static String HTTPS_PERFIX = "https://";
-    public final static String FILE_PERFIX = "file://";
+    public static final String HTTP_PERFIX = "http://";
+    public static final String HTTPS_PERFIX = "https://";
+    public static final String FILE_PERFIX = "file://";
 
     /**
      * 加载网络图片

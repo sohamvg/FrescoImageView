@@ -30,9 +30,7 @@ import com.facebook.drawee.controller.AbstractDraweeController;
 import com.facebook.drawee.controller.BaseControllerListener;
 import com.facebook.drawee.controller.ControllerListener;
 import com.facebook.drawee.drawable.Animatable;
-import com.facebook.drawee.generic.GenericDraweeHierarchy;
 import com.facebook.drawee.interfaces.DraweeController;
-import com.facebook.drawee.view.DraweeView;
 import com.facebook.drawee.view.GenericDraweeView;
 import com.oszc.bbhmlibrary.wrapper.RectF;
 import ohos.aafwk.ability.OnClickListener;
@@ -53,11 +51,7 @@ import ohos.multimodalinput.event.TouchEvent;
 public class ZoomableDraweeView extends GenericDraweeView
         implements ZoomableController.Listener, Component.DrawTask {
 
-//  private static final Class<?> TAG = ZoomableDraweeView.class;
-
     private static final float HUGE_IMAGE_SCALE_FACTOR_THRESHOLD = 1.1f;
-
-    private static final int TOUCH_TIME = 250;//触摸间隔时间
 
     private final RectF mImageBounds = new RectF();
     private final RectF mViewBounds = new RectF();
@@ -165,15 +159,6 @@ public class ZoomableDraweeView extends GenericDraweeView
         canvas.restoreToCount(saveCount);
     }
 
-//    @Override
-//    protected void onDraw(Component component, Canvas canvas) {
-//        int saveCount = canvas.save();
-//        canvas.concat(mZoomableController.getTransform());
-//        super.onDraw(component, canvas);
-//
-//        canvas.restoreToCount(saveCount);
-//    }
-
     public OnClickListener mOnClickListener;
 
     public void setOnDraweeClickListener(OnClickListener l) {
@@ -189,42 +174,20 @@ public class ZoomableDraweeView extends GenericDraweeView
             mCurrDownTime = event.getOccurredTime();
         }
 
-//        if(event.getAction() == TouchEvent.PRIMARY_POINT_UP){
-//            if(event.getOccurredTime() - mCurrDownTime <= TOUCH_TIME){
-//                //点击
-//                if(mOnClickListener != null){
-//                    mOnClickListener.onClick(this);
-//                }
-//            }
-//        }
-
         if (mZoomableController.onTouchEvent(event)) {
-//            if (mZoomableController.getScaleFactor() > 1.0f) {
-//                getParent().requestDisallowInterceptTouchEvent(true);
-//            }
-//      FLog.v(TAG, "onTouchEvent: view %x, handled by zoomable controller", this.hashCode());
             return true;
         }
-//    FLog.v(TAG, "onTouchEvent: view %x, handled by the super", this.hashCode());
         return super.onTouchEvent(component, event);
     }
 
     public void clearZoom(){
         if(mZoomableController != null && mZoomableController instanceof DefaultZoomableController){
-            Point imagePoint = new Point(getWidth() / 2, getHeight() / 2);
+            Point imagePoint = new Point((float) getWidth() / 2, (float) getHeight() / 2);
             ((DefaultZoomableController)mZoomableController).zoomToImagePoint(1, imagePoint);
         }
     }
 
-//    @Override
-//    protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
-////    FLog.v(TAG, "onLayout: view %x", this.hashCode());
-//        super.onLayout(changed, left, top, right, bottom);
-//        updateZoomableControllerBounds();
-//    }
-
     private void onFinalImageSet() {
-//    FLog.v(TAG, "onFinalImageSet: view %x", this.hashCode());
         if (!mZoomableController.isEnabled()) {
             updateZoomableControllerBounds();
             mZoomableController.setEnabled(true);
@@ -232,13 +195,11 @@ public class ZoomableDraweeView extends GenericDraweeView
     }
 
     private void onRelease() {
-//    FLog.v(TAG, "onRelease: view %x", this.hashCode());
         mZoomableController.setEnabled(false);
     }
 
     @Override
     public void onTransformChanged(Matrix transform) {
-//    FLog.v(TAG, "onTransformChanged: view %x", this.hashCode());
         maybeSetHugeImageController();
         invalidate();
     }
@@ -248,12 +209,6 @@ public class ZoomableDraweeView extends GenericDraweeView
         mViewBounds.set(0, 0, getWidth(), getHeight());
         mZoomableController.setImageBounds(mImageBounds);
         mZoomableController.setViewBounds(mViewBounds);
-//    FLog.v(
-//            TAG,
-//            "updateZoomableControllerBounds: view %x, view bounds: %s, image bounds: %s",
-//            this.hashCode(),
-//            mViewBounds,
-//            mImageBounds);
     }
 
 }

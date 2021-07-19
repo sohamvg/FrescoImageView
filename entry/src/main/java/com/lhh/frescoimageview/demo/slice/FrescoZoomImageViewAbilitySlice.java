@@ -1,7 +1,6 @@
 package com.lhh.frescoimageview.demo.slice;
 
 import com.lhh.frescoimageview.demo.ResourceTable;
-import lib.lhh.fiv.library.FrescoImageView;
 import lib.lhh.fiv.library.FrescoZoomImageView;
 import ohos.aafwk.ability.AbilitySlice;
 import ohos.aafwk.content.Intent;
