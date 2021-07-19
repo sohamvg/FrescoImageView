@@ -56,7 +56,7 @@ public class ZoomableDraweeView extends GenericDraweeView
     private final RectF mImageBounds = new RectF();
     private final RectF mViewBounds = new RectF();
 
-    private final ControllerListener mControllerListener = new BaseControllerListener<Object>() {
+    private final ControllerListener<Object> mControllerListener = new BaseControllerListener<Object>() {
         @Override
         public void onFinalImageSet(
                 String id,
@@ -189,7 +189,7 @@ public class ZoomableDraweeView extends GenericDraweeView
      * function clearZoom.
      */
     public void clearZoom() {
-        if (mZoomableController != null && mZoomableController instanceof DefaultZoomableController) {
+        if (mZoomableController instanceof DefaultZoomableController) {
             Point imagePoint = new Point((float) getWidth() / 2, (float) getHeight() / 2);
             ((DefaultZoomableController) mZoomableController).zoomToImagePoint(1, imagePoint);
         }

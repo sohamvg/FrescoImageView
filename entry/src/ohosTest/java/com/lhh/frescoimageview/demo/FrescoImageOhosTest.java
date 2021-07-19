@@ -16,9 +16,6 @@ import java.util.Optional;
 import static org.junit.Assert.*;
 
 public class FrescoImageOhosTest {
-    private FrescoImageView frescoImageView;
-    private Context context;
-
     private final AttrSet attrSet = new AttrSet() {
         @Override
         public Optional<String> getStyle() {
@@ -40,6 +37,8 @@ public class FrescoImageOhosTest {
             return Optional.empty();
         }
     };
+    private FrescoImageView frescoImageView;
+    private Context context;
 
     @Before
     public void setup() {
@@ -77,22 +76,22 @@ public class FrescoImageOhosTest {
     @Test
     public void testDefaultResID() {
         String url = "https://avatars1.githubusercontent.com/u/8758713?v=3&s=460";
-        frescoImageView.loadView(url,5);
-        assertEquals(5,frescoImageView.getDefaultResID());
+        frescoImageView.loadView(url, 5);
+        assertEquals(5, frescoImageView.getDefaultResID());
     }
 
     @Test
     public void testPostprocessor() {
         Postprocessor postProcessor = null;
         frescoImageView.setPostProcessor(postProcessor);
-        assertEquals(postProcessor,frescoImageView.getPostProcessor());
+        assertEquals(postProcessor, frescoImageView.getPostProcessor());
     }
 
     @Test
     public void testControllerListener() {
         ControllerListener controllerListener = null;
         frescoImageView.setControllerListener(controllerListener);
-        assertEquals(controllerListener,frescoImageView.getControllerListener());
+        assertEquals(controllerListener, frescoImageView.getControllerListener());
     }
 
 //    @Test
@@ -104,15 +103,15 @@ public class FrescoImageOhosTest {
     @Test
     public void testThumbnailUrl() {
         String url = "https://avatars1.githubusercontent.com/u/8758713?v=3&s=460";
-        frescoImageView.loadView(url,url,0);
-        assertEquals(url,frescoImageView.getThumbnailUrl());
+        frescoImageView.loadView(url, url, 0);
+        assertEquals(url, frescoImageView.getThumbnailUrl());
     }
 
     @Test
     public void testLowThumbnailUrl() {
         String url = "https://avatars1.githubusercontent.com/u/8758713?v=3&s=460";
-        frescoImageView.loadView(url,url,0);
-        assertEquals(url,frescoImageView.getLowThumbnailUrl());
+        frescoImageView.loadView(url, url, 0);
+        assertEquals(url, frescoImageView.getLowThumbnailUrl());
     }
 
     @Test

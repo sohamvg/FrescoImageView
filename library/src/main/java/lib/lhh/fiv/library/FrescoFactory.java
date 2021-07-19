@@ -13,6 +13,10 @@ import ohos.utils.net.Uri;
  */
 public class FrescoFactory {
 
+    private FrescoFactory() {
+        throw new IllegalStateException("Fresco Factory class");
+    }
+
     /**
      * function buildDraweeController.
      *
@@ -50,7 +54,7 @@ public class FrescoFactory {
      * @return ImageRequest
      */
     public static ImageRequest buildImageRequestWithSource(BaseFrescoImageView fresco) {
-        String thumbnail = null;
+        String thumbnail;
         if (TextUtils.isEmpty(fresco.getThumbnailUrl())) {
             thumbnail = fresco.getThumbnailPath();
         } else {
@@ -70,7 +74,7 @@ public class FrescoFactory {
      * @return ImageRequest
      */
     public static ImageRequest buildLowImageRequest(BaseFrescoImageView fresco) {
-        String lowThumbnail = null;
+        String lowThumbnail;
         if (TextUtils.isEmpty(fresco.getLowThumbnailUrl())) {
             return null;
         }
