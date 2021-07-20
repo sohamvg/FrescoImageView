@@ -16,8 +16,8 @@ import ohos.multimodalinput.event.TouchEvent;
 
 /**
  * Component that detects and tracks multiple pointers based on touch events.
- * <p>
- * Each time a pointer gets pressed or released, the current gesture (if any) will end, and a new
+ *
+ * <p>Each time a pointer gets pressed or released, the current gesture (if any) will end, and a new
  * one will be started (if there are still pressed pointers left). It is guaranteed that the number
  * of pointers within the single gesture will remain the same during the whole gesture.
  */
@@ -25,25 +25,34 @@ public class MultiPointerGestureDetector {
 
     /** The listener for receiving notifications when gestures occur. */
     public interface Listener {
-        /** Responds to the beginning of a gesture. */
-        public void onGestureBegin(MultiPointerGestureDetector detector);
+        /** Responds to the beginning of a gesture.
+         *
+         * @param detector Multi pointer gesture detector
+         */
+        void onGestureBegin(MultiPointerGestureDetector detector);
 
-        /** Responds to the update of a gesture in progress. */
-        public void onGestureUpdate(MultiPointerGestureDetector detector);
+        /** Responds to the update of a gesture in progress.
+         *
+         * @param detector Multi pointer gesture detector
+         */
+        void onGestureUpdate(MultiPointerGestureDetector detector);
 
-        /** Responds to the end of a gesture. */
-        public void onGestureEnd(MultiPointerGestureDetector detector);
+        /** Responds to the end of a gesture.
+         *
+         * @param detector Multi pointer gesture detector
+         */
+        void onGestureEnd(MultiPointerGestureDetector detector);
     }
 
     private static final int MAX_POINTERS = 2;
 
     private boolean mGestureInProgress;
     private int mCount;
-    private final int mId[] = new int[MAX_POINTERS];
-    private final float mStartX[] = new float[MAX_POINTERS];
-    private final float mStartY[] = new float[MAX_POINTERS];
-    private final float mCurrentX[] = new float[MAX_POINTERS];
-    private final float mCurrentY[] = new float[MAX_POINTERS];
+    private final int[] mId = new int[MAX_POINTERS];
+    private final float[] mStartX = new float[MAX_POINTERS];
+    private final float[] mStartY = new float[MAX_POINTERS];
+    private final float[] mCurrentX = new float[MAX_POINTERS];
+    private final float[] mCurrentY = new float[MAX_POINTERS];
 
     private Listener mListener = null;
 
@@ -51,7 +60,7 @@ public class MultiPointerGestureDetector {
         reset();
     }
 
-    /** Factory method that creates a new instance of MultiPointerGestureDetector */
+    /** Factory method that creates a new instance of MultiPointerGestureDetector. */
     public static MultiPointerGestureDetector newInstance() {
         return new MultiPointerGestureDetector();
     }
@@ -93,13 +102,19 @@ public class MultiPointerGestureDetector {
         }
     }
 
+    /**
+     * Handles touch event.
+     *
+     * @param event Touch event
+     * @return True if successfully handled
+     */
     public boolean onTouchEvent(final TouchEvent event) {
         switch (event.getAction()) {
             case TouchEvent.POINT_MOVE: {
                 // update pointers
                 for (int i = 0; i < event.getPointerCount(); i++) {
-                        mCurrentX[i] = event.getPointerPosition(i).getX();
-                        mCurrentY[i] = event.getPointerPosition(i).getY();
+                    mCurrentX[i] = event.getPointerPosition(i).getX();
+                    mCurrentY[i] = event.getPointerPosition(i).getY();
                 }
                 // start a new gesture if not already started
                 if (!mGestureInProgress && shouldStartGesture()) {
@@ -118,7 +133,7 @@ public class MultiPointerGestureDetector {
             case TouchEvent.OTHER_POINT_UP: {
                 // we'll restart the current gesture (if any) whenever the number of pointers changes
                 // NOTE: we only restart existing gestures here, new gestures are started in ACTION_MOVE
-                boolean wasGestureInProgress = mGestureInProgress;
+                final boolean wasGestureInProgress = mGestureInProgress;
                 stopGesture();
                 reset();
                 // update pointers
@@ -135,16 +150,18 @@ public class MultiPointerGestureDetector {
                 break;
             }
 
-            case TouchEvent.CANCEL: {
+            case TouchEvent.CANCEL:
+            default: {
                 stopGesture();
                 reset();
                 break;
             }
+
         }
         return true;
     }
 
-    /** Restarts the current gesture */
+    /** Restarts the current gesture. */
     public void restartGesture() {
         if (!mGestureInProgress) {
             return;
@@ -157,12 +174,12 @@ public class MultiPointerGestureDetector {
         startGesture();
     }
 
-    /** Gets whether gesture is in progress or not */
+    /** Gets whether gesture is in progress or not. */
     public boolean isGestureInProgress() {
         return mGestureInProgress;
     }
 
-    /** Gets the number of pointers in the current gesture */
+    /** Gets the number of pointers in the current gesture. */
     public int getCount() {
         return mCount;
     }

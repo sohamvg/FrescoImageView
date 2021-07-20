@@ -10,12 +10,15 @@ import com.oszc.bbhmlibrary.wrapper.TextUtils;
 import lib.lhh.fiv.library.zoomable.ZoomableDraweeView;
 import ohos.agp.components.AttrSet;
 import ohos.app.Context;
+import ohos.hiviewdfx.HiLog;
+import ohos.hiviewdfx.HiLogLabel;
 
 
 /**
  * Created by Linhh on 16/2/18.
  */
 public class FrescoZoomImageView extends ZoomableDraweeView implements FrescoController, BaseFrescoImageView {
+    private static final HiLogLabel LABEL_LOG = new HiLogLabel(3, 0xD001100, "FrescoZoomImageView");
 
     private String mThumbnailUrl = null;
 
@@ -31,7 +34,7 @@ public class FrescoZoomImageView extends ZoomableDraweeView implements FrescoCon
 
     private ImageRequest mLowResRequest;
 
-    private ControllerListener mControllerListener;
+    private ControllerListener<Object> mControllerListener;
 
     private Postprocessor mPostProcessor;
 
@@ -86,8 +89,8 @@ public class FrescoZoomImageView extends ZoomableDraweeView implements FrescoCon
             mLowThumbnailUrl = url;
             mDefaultResID = defaultResID;
             if (!TextUtils.isEmpty(mThumbnailUrl)
-                    && (mThumbnailUrl.startsWith(FrescoController.HTTP_PERFIX)
-                    || mThumbnailUrl.startsWith(FrescoController.HTTPS_PERFIX))) {
+                    && (mThumbnailUrl.startsWith(FrescoController.HTTP_PREFIX)
+                    || mThumbnailUrl.startsWith(FrescoController.HTTPS_PREFIX))) {
 
                 this.getHierarchy().setPlaceholderImage(defaultResID);
 
@@ -100,7 +103,7 @@ public class FrescoZoomImageView extends ZoomableDraweeView implements FrescoCon
             this.setResourceController();
 
         } catch (OutOfMemoryError e) {
-            e.printStackTrace();
+            HiLog.error(LABEL_LOG, e.getMessage());
         }
     }
 
@@ -123,12 +126,12 @@ public class FrescoZoomImageView extends ZoomableDraweeView implements FrescoCon
                 this.setResourceController();
                 return;
             }
-            if (!mThumbnailPath.startsWith(FrescoController.FILE_PERFIX)) {
-                mThumbnailPath = FrescoController.FILE_PERFIX + mThumbnailPath;
+            if (!mThumbnailPath.startsWith(FrescoController.FILE_PREFIX)) {
+                mThumbnailPath = FrescoController.FILE_PREFIX + mThumbnailPath;
             }
             this.setSourceController();
         } catch (OutOfMemoryError e) {
-            e.printStackTrace();
+            HiLog.error(LABEL_LOG, e.getMessage());
         }
     }
 
@@ -183,7 +186,7 @@ public class FrescoZoomImageView extends ZoomableDraweeView implements FrescoCon
     }
 
     @Override
-    public ControllerListener getControllerListener() {
+    public ControllerListener<Object> getControllerListener() {
         return this.mControllerListener;
     }
 
@@ -217,15 +220,15 @@ public class FrescoZoomImageView extends ZoomableDraweeView implements FrescoCon
     }
 
     @Override
-    public void setControllerListener(ControllerListener controllerListener) {
+    public void setControllerListener(ControllerListener<Object> controllerListener) {
         this.mControllerListener = controllerListener;
     }
 
     @Override
-    public void setCircle(int overlay_color) {
+    public void setCircle(int overlayColor) {
         setRoundingParmas(getRoundingParams().setRoundAsCircle(true)
                 .setRoundingMethod(RoundingParams.RoundingMethod.OVERLAY_COLOR)
-                .setOverlayColor(overlay_color));
+                .setOverlayColor(overlayColor));
     }
 
     @Override
@@ -234,10 +237,10 @@ public class FrescoZoomImageView extends ZoomableDraweeView implements FrescoCon
     }
 
     @Override
-    public void setCornerRadius(float radius, int overlay_color) {
+    public void setCornerRadius(float radius, int overlayColor) {
         setRoundingParmas(getRoundingParams().setCornersRadius(radius)
                 .setRoundingMethod(RoundingParams.RoundingMethod.OVERLAY_COLOR)
-                .setOverlayColor(overlay_color));
+                .setOverlayColor(overlayColor));
     }
 
     @Override

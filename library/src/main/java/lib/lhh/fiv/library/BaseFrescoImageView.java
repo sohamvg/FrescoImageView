@@ -16,87 +16,87 @@ public interface BaseFrescoImageView {
      *
      * @return ControllerListener
      */
-    public ControllerListener getControllerListener();
+    ControllerListener<Object> getControllerListener();
 
     /**
      * 获得当前使用的DraweeController.
      *
      * @return DraweeController
      */
-    public DraweeController getDraweeController();
+    DraweeController getDraweeController();
 
     /**
      * 获得低级别ImageRequest.
      *
      * @return ImageRequest
      */
-    public ImageRequest getLowImageRequest();
+    ImageRequest getLowImageRequest();
 
     /**
      * 获得当前使用的ImageRequest.
      *
      * @return ImageRequest
      */
-    public ImageRequest getImageRequest();
+    ImageRequest getImageRequest();
 
     /**
      * 获得当前使用的RoundingParams.
      */
-    public RoundingParams getRoundingParams();
+    RoundingParams getRoundingParams();
 
     /**
      * 是否开启动画.
      *
      * @return boolean
      */
-    public boolean isAnim();
+    boolean isAnim();
 
     /**
      * 获得当前后处理.
      *
      * @return Postprocessor
      */
-    public Postprocessor getPostProcessor();
+    Postprocessor getPostProcessor();
 
     /**
      * 获得当前使用的默认图.
      *
      * @return int
      */
-    public int getDefaultResID();
+    int getDefaultResID();
 
     /**
      * 获得当前加载的图片.
      *
      * @return String
      */
-    public String getThumbnailUrl();
+    String getThumbnailUrl();
 
     /**
      * 获得当前低分辨率图片.
      *
      * @return String
      */
-    public String getLowThumbnailUrl();
+    String getLowThumbnailUrl();
 
     /**
      * 获得加载的本地图片.
      *
      * @return String
      */
-    public String getThumbnailPath();
+    String getThumbnailPath();
 
     /**
      * 是否可以点击重试,默认false.
      *
      * @return boolean
      */
-    public boolean getTapToRetryEnabled();
+    boolean getTapToRetryEnabled();
 
     /**
      * 是否自动旋转.
      *
      * @return boolean
      */
-    public boolean getAutoRotateEnabled();
+    boolean getAutoRotateEnabled();
 }

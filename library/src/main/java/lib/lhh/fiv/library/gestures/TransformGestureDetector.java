@@ -16,8 +16,8 @@ import ohos.multimodalinput.event.TouchEvent;
 
 /**
  * Component that detects translation, scale and rotation based on touch events.
- * <p>
- * This class notifies its listeners whenever a gesture begins, updates or ends.
+ *
+ * <p>This class notifies its listeners whenever a gesture begins, updates or ends.
  * The instance of this detector is passed to the listeners, so it can be queried
  * for pivot, translation, scale or rotation.
  */
@@ -25,14 +25,23 @@ public class TransformGestureDetector implements MultiPointerGestureDetector.Lis
 
     /** The listener for receiving notifications when gestures occur. */
     public interface Listener {
-        /** Responds to the beginning of a gesture. */
-        public void onGestureBegin(TransformGestureDetector detector);
+        /** Responds to the beginning of a gesture.
+         *
+         * @param detector Transform gesture detector
+         */
+        void onGestureBegin(TransformGestureDetector detector);
 
-        /** Responds to the update of a gesture in progress. */
-        public void onGestureUpdate(TransformGestureDetector detector);
+        /** Responds to the update of a gesture in progress.
+         *
+         * @param detector Transform gesture detector
+         */
+        void onGestureUpdate(TransformGestureDetector detector);
 
-        /** Responds to the end of a gesture. */
-        public void onGestureEnd(TransformGestureDetector detector);
+        /** Responds to the end of a gesture.
+         *
+         * @param detector Transform gesture detector
+         */
+        void onGestureEnd(TransformGestureDetector detector);
     }
 
     private final MultiPointerGestureDetector mDetector;
@@ -44,7 +53,7 @@ public class TransformGestureDetector implements MultiPointerGestureDetector.Lis
         mDetector.setListener(this);
     }
 
-    /** Factory method that creates a new instance of TransformGestureDetector */
+    /** Factory method that creates a new instance of TransformGestureDetector. */
     public static TransformGestureDetector newInstance() {
         return new TransformGestureDetector(MultiPointerGestureDetector.newInstance());
     }
@@ -93,39 +102,39 @@ public class TransformGestureDetector implements MultiPointerGestureDetector.Lis
         return (len > 0) ? sum / len : 0;
     }
 
-    /** Restarts the current gesture */
+    /** Restarts the current gesture. */
     public void restartGesture() {
         mDetector.restartGesture();
     }
 
-    /** Gets whether gesture is in progress or not */
+    /** Gets whether gesture is in progress or not. */
     public boolean isGestureInProgress() {
         return mDetector.isGestureInProgress();
     }
 
-    /** Gets the X coordinate of the pivot point */
+    /** Gets the X coordinate of the pivot point. */
     public float getPivotX() {
         return calcAverage(mDetector.getStartX(), mDetector.getCount());
     }
 
-    /** Gets the Y coordinate of the pivot point */
+    /** Gets the Y coordinate of the pivot point. */
     public float getPivotY() {
         return calcAverage(mDetector.getStartY(), mDetector.getCount());
     }
 
-    /** Gets the X component of the translation */
+    /** Gets the X component of the translation. */
     public float getTranslationX() {
-        return calcAverage(mDetector.getCurrentX(), mDetector.getCount()) -
-                calcAverage(mDetector.getStartX(), mDetector.getCount());
+        return calcAverage(mDetector.getCurrentX(), mDetector.getCount())
+                - calcAverage(mDetector.getStartX(), mDetector.getCount());
     }
 
-    /** Gets the Y component of the translation */
+    /** Gets the Y component of the translation. */
     public float getTranslationY() {
-        return calcAverage(mDetector.getCurrentY(), mDetector.getCount()) -
-                calcAverage(mDetector.getStartY(), mDetector.getCount());
+        return calcAverage(mDetector.getCurrentY(), mDetector.getCount())
+                - calcAverage(mDetector.getStartY(), mDetector.getCount());
     }
 
-    /** Gets the scale */
+    /** Gets the scale. */
     public float getScale() {
         if (mDetector.getCount() < 2) {
             return 1;
@@ -140,7 +149,7 @@ public class TransformGestureDetector implements MultiPointerGestureDetector.Lis
         }
     }
 
-    /** Gets the rotation in radians */
+    /** Gets the rotation in radians. */
     public float getRotation() {
         if (mDetector.getCount() < 2) {
             return 0;

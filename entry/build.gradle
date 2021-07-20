@@ -13,7 +13,7 @@ ohos {
             }
         }
     }
-    
+
 }
 
 dependencies {
@@ -26,8 +26,8 @@ dependencies {
     implementation('io.openharmony.tpc.thirdlib:animated_base:1.0.1')
     implementation('io.openharmony.tpc.thirdlib:animated_drawable:1.0.1')
     implementation('io.openharmony.tpc.thirdlib:animated_gif:1.0.1')
-    implementation ('io.openharmony.tpc.thirdlib:fresco_gif:1.0.1')
+    implementation('io.openharmony.tpc.thirdlib:fresco_gif:1.0.1')
 }
 decc {
-    supportType = ['html','xml']
+    supportType = ['html', 'xml']
 }

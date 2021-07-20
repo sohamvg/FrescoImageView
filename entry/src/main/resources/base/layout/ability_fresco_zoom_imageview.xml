@@ -8,18 +8,18 @@
 
     <Text
         ohos:id="$+id:text"
-        ohos:layout_alignment="horizontal_center"
         ohos:height="match_content"
         ohos:width="match_content"
-        ohos:text_size="20vp"
         ohos:bottom_margin="30vp"
+        ohos:layout_alignment="horizontal_center"
+        ohos:text_size="20vp"
         />
 
     <lib.lhh.fiv.library.FrescoZoomImageView
         ohos:id="$+id:fiv"
-        ohos:layout_alignment="horizontal_center"
         ohos:height="match_parent"
         ohos:width="match_parent"
+        ohos:layout_alignment="horizontal_center"
         fresco:actualImageScaleType="fitCenter"
         />
 

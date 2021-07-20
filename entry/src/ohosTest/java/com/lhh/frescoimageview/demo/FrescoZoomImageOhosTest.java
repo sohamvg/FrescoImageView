@@ -3,7 +3,6 @@ package com.lhh.frescoimageview.demo;
 import com.facebook.drawee.controller.ControllerListener;
 import com.facebook.drawee.generic.RoundingParams;
 import com.facebook.imagepipeline.request.Postprocessor;
-import lib.lhh.fiv.library.FrescoImageView;
 import lib.lhh.fiv.library.FrescoZoomImageView;
 import ohos.aafwk.ability.delegation.AbilityDelegatorRegistry;
 import ohos.agp.components.Attr;
@@ -17,9 +16,6 @@ import java.util.Optional;
 import static org.junit.Assert.*;
 
 public class FrescoZoomImageOhosTest {
-    private FrescoZoomImageView frescoZoomImageView;
-    private Context context;
-
     private final AttrSet attrSet = new AttrSet() {
         @Override
         public Optional<String> getStyle() {
@@ -41,10 +37,12 @@ public class FrescoZoomImageOhosTest {
             return Optional.empty();
         }
     };
+    private FrescoZoomImageView frescoZoomImageView;
+    private static final String IMG_URL = "https://avatars1.githubusercontent.com/u/8758713?v=3&s=460";
 
     @Before
     public void setup() {
-        context = AbilityDelegatorRegistry.getAbilityDelegator().getAppContext();
+        Context context = AbilityDelegatorRegistry.getAbilityDelegator().getAppContext();
         frescoZoomImageView = new FrescoZoomImageView(context, attrSet);
     }
 
@@ -77,43 +75,35 @@ public class FrescoZoomImageOhosTest {
 
     @Test
     public void testDefaultResID() {
-        String url = "https://avatars1.githubusercontent.com/u/8758713?v=3&s=460";
-        frescoZoomImageView.loadView(url,5);
-        assertEquals(5,frescoZoomImageView.getDefaultResID());
+        frescoZoomImageView.loadView(IMG_URL, 5);
+        assertEquals(5, frescoZoomImageView.getDefaultResID());
     }
 
     @Test
     public void testPostprocessor() {
         Postprocessor postProcessor = null;
         frescoZoomImageView.setPostProcessor(postProcessor);
-        assertEquals(postProcessor,frescoZoomImageView.getPostProcessor());
+        assertEquals(postProcessor, frescoZoomImageView.getPostProcessor());
     }
 
     @Test
     public void testControllerListener() {
         ControllerListener controllerListener = null;
         frescoZoomImageView.setControllerListener(controllerListener);
-        assertEquals(controllerListener,frescoZoomImageView.getControllerListener());
+        assertEquals(controllerListener, frescoZoomImageView.getControllerListener());
     }
 
-//    @Test
-//    public void testThumbnailPath() {
-//        frescoZoomImageView.loadLocalImage("file://path",0);
-//        assertEquals("file://path",frescoZoomImageView.getThumbnailPath());
-//    }
 
     @Test
     public void testThumbnailUrl() {
-        String url = "https://avatars1.githubusercontent.com/u/8758713?v=3&s=460";
-        frescoZoomImageView.loadView(url,url,0);
-        assertEquals(url,frescoZoomImageView.getThumbnailUrl());
+        frescoZoomImageView.loadView(IMG_URL, IMG_URL, 0);
+        assertEquals(IMG_URL, frescoZoomImageView.getThumbnailUrl());
     }
 
     @Test
     public void testLowThumbnailUrl() {
-        String url = "https://avatars1.githubusercontent.com/u/8758713?v=3&s=460";
-        frescoZoomImageView.loadView(url,url,0);
-        assertEquals(url,frescoZoomImageView.getLowThumbnailUrl());
+        frescoZoomImageView.loadView(IMG_URL, IMG_URL, 0);
+        assertEquals(IMG_URL, frescoZoomImageView.getLowThumbnailUrl());
     }
 
     @Test

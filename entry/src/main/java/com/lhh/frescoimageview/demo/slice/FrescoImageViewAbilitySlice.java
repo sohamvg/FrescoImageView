@@ -25,14 +25,14 @@ public class FrescoImageViewAbilitySlice extends AbilitySlice {
         } else {
             text.setText("Internet not granted!");
             if (canRequestPermission(SystemPermission.INTERNET)) {
-                requestPermissionsFromUser(new String[] {SystemPermission.INTERNET}, 0);
+                requestPermissionsFromUser(new String[]{SystemPermission.INTERNET}, 0);
             }
         }
 
-        String mImgUrl = "https://avatars1.githubusercontent.com/u/8758713?v=3&s=460";
+        String imgUrl = "https://avatars1.githubusercontent.com/u/8758713?v=3&s=460";
 
         FrescoImageView frescoImageView = (FrescoImageView) findComponentById(ResourceTable.Id_fiv);
         frescoImageView.asCircle();
-        frescoImageView.loadView(mImgUrl, ResourceTable.Media_icon);
+        frescoImageView.loadView(imgUrl, ResourceTable.Media_icon);
     }
 }

@@ -26,7 +26,7 @@ public interface ZoomableController {
     /**
      * Listener interface.
      */
-    public interface Listener {
+    interface Listener {
 
         void onTransformChanged(Matrix transform);
     }

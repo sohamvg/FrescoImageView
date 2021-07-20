@@ -16,9 +16,6 @@ import java.util.Optional;
 import static org.junit.Assert.*;
 
 public class FrescoImageOhosTest {
-    private FrescoImageView frescoImageView;
-    private Context context;
-
     private final AttrSet attrSet = new AttrSet() {
         @Override
         public Optional<String> getStyle() {
@@ -40,10 +37,12 @@ public class FrescoImageOhosTest {
             return Optional.empty();
         }
     };
+    private FrescoImageView frescoImageView;
+    private static final String IMG_URL = "https://avatars1.githubusercontent.com/u/8758713?v=3&s=460";
 
     @Before
     public void setup() {
-        context = AbilityDelegatorRegistry.getAbilityDelegator().getAppContext();
+        Context context = AbilityDelegatorRegistry.getAbilityDelegator().getAppContext();
         frescoImageView = new FrescoImageView(context, attrSet);
     }
 
@@ -76,43 +75,34 @@ public class FrescoImageOhosTest {
 
     @Test
     public void testDefaultResID() {
-        String url = "https://avatars1.githubusercontent.com/u/8758713?v=3&s=460";
-        frescoImageView.loadView(url,5);
-        assertEquals(5,frescoImageView.getDefaultResID());
+        frescoImageView.loadView(IMG_URL, 5);
+        assertEquals(5, frescoImageView.getDefaultResID());
     }
 
     @Test
     public void testPostprocessor() {
         Postprocessor postProcessor = null;
         frescoImageView.setPostProcessor(postProcessor);
-        assertEquals(postProcessor,frescoImageView.getPostProcessor());
+        assertEquals(postProcessor, frescoImageView.getPostProcessor());
     }
 
     @Test
     public void testControllerListener() {
         ControllerListener controllerListener = null;
         frescoImageView.setControllerListener(controllerListener);
-        assertEquals(controllerListener,frescoImageView.getControllerListener());
+        assertEquals(controllerListener, frescoImageView.getControllerListener());
     }
-
-//    @Test
-//    public void testThumbnailPath() {
-//        frescoImageView.loadLocalImage("file://path",0);
-//        assertEquals("file://path",frescoImageView.getThumbnailPath());
-//    }
 
     @Test
     public void testThumbnailUrl() {
-        String url = "https://avatars1.githubusercontent.com/u/8758713?v=3&s=460";
-        frescoImageView.loadView(url,url,0);
-        assertEquals(url,frescoImageView.getThumbnailUrl());
+        frescoImageView.loadView(IMG_URL, IMG_URL, 0);
+        assertEquals(IMG_URL, frescoImageView.getThumbnailUrl());
     }
 
     @Test
     public void testLowThumbnailUrl() {
-        String url = "https://avatars1.githubusercontent.com/u/8758713?v=3&s=460";
-        frescoImageView.loadView(url,url,0);
-        assertEquals(url,frescoImageView.getLowThumbnailUrl());
+        frescoImageView.loadView(IMG_URL, IMG_URL, 0);
+        assertEquals(IMG_URL, frescoImageView.getLowThumbnailUrl());
     }
 
     @Test

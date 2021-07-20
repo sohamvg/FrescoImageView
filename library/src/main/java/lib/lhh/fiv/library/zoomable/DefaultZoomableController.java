@@ -25,7 +25,7 @@ import ohos.multimodalinput.event.TouchEvent;
 public class DefaultZoomableController
         implements ZoomableController, TransformGestureDetector.Listener {
 
-    private TransformGestureDetector mGestureDetector;
+    private final TransformGestureDetector mGestureDetector;
 
     private Listener mListener = null;
 
@@ -209,7 +209,7 @@ public class DefaultZoomableController
 
     private void mapAbsoluteToRelative(float[] destPoints, float[] srcPoints, int numPoints) {
         for (int i = 0; i < numPoints; i++) {
-            destPoints[i * 2 + 0] = (srcPoints[i * 2 + 0] - mImageBounds.left) / mImageBounds.getWidth();
+            destPoints[i * 2] = (srcPoints[i * 2] - mImageBounds.left) / mImageBounds.getWidth();
             destPoints[i * 2 + 1] = (srcPoints[i * 2 + 1] - mImageBounds.top) / mImageBounds.getHeight();
         }
     }

@@ -25,13 +25,13 @@ public class FrescoGifImageViewAbilitySlice extends AbilitySlice {
         } else {
             text.setText("Internet not granted!");
             if (canRequestPermission(SystemPermission.INTERNET)) {
-                requestPermissionsFromUser(new String[] {SystemPermission.INTERNET}, 0);
+                requestPermissionsFromUser(new String[]{SystemPermission.INTERNET}, 0);
             }
         }
 
-        String mGifUrl = "https://frescolib.org/static/sample-images/fresco_logo_anim_full_frames_s.gif";
+        String gifUrl = "https://frescolib.org/static/sample-images/fresco_logo_anim_full_frames_s.gif";
 
         FrescoImageView frescoImageView = (FrescoImageView) findComponentById(ResourceTable.Id_fiv);
-        frescoImageView.loadGifView(mGifUrl);
+        frescoImageView.loadGifView(gifUrl);
     }
 }

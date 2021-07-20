@@ -10,9 +10,9 @@ import com.facebook.imagepipeline.request.Postprocessor;
  */
 public interface FrescoController {
 
-    public static final String HTTP_PERFIX = "http://";
-    public static final String HTTPS_PERFIX = "https://";
-    public static final String FILE_PERFIX = "file://";
+    String HTTP_PREFIX = "http://";
+    String HTTPS_PREFIX = "https://";
+    String FILE_PREFIX = "file://";
 
     /**
      * 加载网络图片.
@@ -21,7 +21,7 @@ public interface FrescoController {
      * @param url 网络图片
      * @param defaultResID 默认图
      */
-    public void loadView(String lowUrl, String url, int defaultResID);
+    void loadView(String lowUrl, String url, int defaultResID);
 
     /**
      * 加载网络图片.
@@ -29,7 +29,7 @@ public interface FrescoController {
      * @param url 网络图片
      * @param defaultResID 默认图
      */
-    public void loadView(String url, int defaultResID);
+    void loadView(String url, int defaultResID);
 
     /**
      * 加载本地图片.
@@ -37,34 +37,34 @@ public interface FrescoController {
      * @param path 图片路劲
      * @param defaultRes 默认图
      */
-    public void loadLocalImage(String path, int defaultRes);
+    void loadLocalImage(String path, int defaultRes);
 
     /**
      * 将该Fresco处理为圆形.
      */
-    public void asCircle();
+    void asCircle();
 
     /**
      * 用一种颜色来遮挡View以实现圆形，在一些内存较低的机器上推荐使用.
      *
-     * @param overlay_color int
+     * @param overlayColor int
      */
-    public void setCircle(int overlay_color);
+    void setCircle(int overlayColor);
 
     /**
      * 设置圆角.
      *
      * @param radius float
      */
-    public void setCornerRadius(float radius);
+    void setCornerRadius(float radius);
 
     /**
      * 用一种颜色来遮挡View以实现圆角，在一些内存较低的机器上推荐使用.
      *
      * @param radius float
-     * @param overlay_color int
+     * @param overlayColor int
      */
-    public void setCornerRadius(float radius, int overlay_color);
+    void setCornerRadius(float radius, int overlayColor);
 
     /**
      * 设置边框.
@@ -72,26 +72,26 @@ public interface FrescoController {
      * @param color int
      * @param width float
      */
-    public void setBorder(int color, float width);
+    void setBorder(int color, float width);
 
     /**
      * 清除所使用的RoundingParams.
      */
-    public void clearRoundingParams();
+    void clearRoundingParams();
 
     /**
      * 设置RoundingParams.
      *
      * @param roundingParmas RoundingParams
      */
-    public void setRoundingParmas(RoundingParams roundingParmas);
+    void setRoundingParmas(RoundingParams roundingParmas);
 
     /**
      * 设置下载监听器.
      *
      * @param controllerListener ControllerListener
      */
-    public void setControllerListener(ControllerListener controllerListener);
+    void setControllerListener(ControllerListener<Object> controllerListener);
 
 
     /**
@@ -99,7 +99,7 @@ public interface FrescoController {
      *
      * @param postProcessor Postprocessor
      */
-    public void setPostProcessor(Postprocessor postProcessor);
+    void setPostProcessor(Postprocessor postProcessor);
 
 
     /**
@@ -107,27 +107,27 @@ public interface FrescoController {
      *
      * @param anim boolean
      */
-    public void setAnim(boolean anim);
+    void setAnim(boolean anim);
 
     /**
      * 是否可以点击重试.
      *
      * @param tapToRetryEnabled boolean
      */
-    public void setTapToRetryEnabled(boolean tapToRetryEnabled);
+    void setTapToRetryEnabled(boolean tapToRetryEnabled);
 
     /**
      * 是否自动旋转.
      *
      * @param autoRotateEnabled boolean
      */
-    public void setAutoRotateEnabled(boolean autoRotateEnabled);
+    void setAutoRotateEnabled(boolean autoRotateEnabled);
 
     /**
      * 设置图片缩放type.
      *
      * @param scaleType ScaleType
      */
-    public void setActualImageScaleType(ScalingUtils.ScaleType scaleType);
+    void setActualImageScaleType(ScalingUtils.ScaleType scaleType);
 
 }
