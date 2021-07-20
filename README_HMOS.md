@@ -1,235 +1,161 @@
 # Fresco-ImageView
 
-FrescoImageView是一种Android平台的图像控件，可以异步加载网络图片、项目资源和本地图片，并且支持双指缩放、图片的基本处理以及Fresco的所有特性。
+FrescoImageView is an image control for the HarmonyOS platform that can asynchronously load network pictures, project resources and local pictures, and supports two-finger zooming, basic image processing, and all the features of Fresco.
 
-该控件基于Facebook的图像加载库Fresco封装，Fresco的所有方法和属性都可以使用。
+The control is based on Facebook's image loading library Fresco package, all methods and properties of Fresco can be used.
 
-Fresco-ImageView本身继承自DraweeView，所以可以直接把它当作DraweeView使用，除使用控件封装的加载方法外还可以通过Fresco原始的ImageRequest来加载图片。
+Fresco-ImageView itself inherits from DraweeView, so you can directly use it as DraweeView. In addition to using the loading method encapsulated by the control, you can also load pictures through Fresco's original ImageRequest.
 
-## 特性
- * 直接继承Fresco的DraweeView，本质是View，同时兼容Fresco的所有参数和方法
- * 加载图片只需一步，无需繁杂的设置
- * 支持双指缩放，并且支持点击事件，替代PhotoView的控件
+## Characteristic
+ * Directly inherit Fresco's DraweeView, which is essentially a View, and is compatible with all Fresco's parameters and methods
+ * Only one step is required to load pictures, no complicated settings are required
+ * Supports two-finger zoom, and supports click events, instead of PhotoView controls
 
-Project site： <https://github.com/HomHomLin/FrescoImageView>.
+## Usage
 
-最新版本:v1.3.0
+### Configure Fresco
 
-##导入项目
+Add network access permissions in the config.json of the project (depending on requirements).
 
-**Gradle dependency:**
-``` groovy
-compile 'homhomlin.lib:frescoimageview:1.3.0'
+```json
+"reqPermissions": [
+  {
+    "name": "ohos.permission.INTERNET",
+    "reason": "internet"
+  }
+]
 ```
 
-or
+Configure Fresco in the Application class of the project. This is actually the content of Fresco.
 
-**Maven dependency:**
-``` xml
-<dependency>
-  <groupId>homhomlin.lib</groupId>
-  <artifactId>frescoimageview</artifactId>
-  <version>1.3.0</version>
-</dependency>
-```
-
-
-##用法
-
-###导入Fresco
-
-在项目导入FrescoImageView后，还需要导入Fresco，如下：
-
-``` groovy
-compile 'com.facebook.fresco:fresco:0.10.0'
-```
-
-截止至当前Readme编写时间，Fresco的最新版本为0.10.0。
-
-FrescoImageView本身并不包含Fresco，如果你还需要OKHTTP请查阅Fresco用法或者看这个[DEMO](https://github.com/HomHomLin/FrescoImageView/blob/master/app/src/main/java/com/lhh/frescoimageview/demo/App.java)。
-
-Fresco-0.10.0与之前版本有所区别，它将GIF和WEBP的库分离出来，所以如果你的项目使用了Fresco-0.10.0并且需要FrescoImageView实现gif和webp的功能，那么请添加以下依赖：
-
-``` groovy
-compile 'com.facebook.fresco:animated-webp:0.10.0'
-compile 'com.facebook.fresco:animated-gif:0.10.0'
-```
-
-如果需要Android2.3版本实现Gif，需要添加额外依赖：
-
-``` groovy
-compile 'com.facebook.fresco:animated-base-support:0.10.0'
-```
-
-###配置Fresco
-
-在项目的AndroidManifest.xml中添加网络访问权限（视需求而定），example中使用了OkHttp，如果你有需要请参照example。
-
-```xml
-<uses-permission android:name="android.permission.INTERNET"/>
-```
-
-在项目的Application类中配置Fresco，这里其实是Fresco的内容。
-
-``` java
-public class App extends Application{
+```java
+public class MyApplication extends AbilityPackage {
     @Override
-    public void onCreate() {
-        super.onCreate();
+    public void onInitialize() {
+        super.onInitialize();
         Fresco.initialize(this);
     }
 }
 ```
 
-###添加控件到XML
+### Adding controls to XML
+Add components to the interface xml that needs to be added.
 
-在需要添加的界面xml中添加组件。
-
-FrescoImageView提供两种组件，分别是FrescoImageView（普通控件）和FrescoZoomImageView（可缩放控件），根据需要添加控件，以下以FrescoZoomImageView为例：
+FrescoImageView provides two components, FrescoImageView (normal control) and FrescoZoomImageView (scalable control). Add controls as needed. Take FrescoZoomImageView as an example:
 
 ``` xml
-<lib.lhh.fiv.library.FrescoZoomImageView
-    android:id="@+id/fiv"
-    fresco:actualImageScaleType="fitCenter"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"/>
+<lib.lhh.fiv.library.FrescoImageView
+    ohos:id="$+id:fiv"
+    ohos:layout_alignment="horizontal_center"
+    ohos:height="100vp"
+    ohos:width="100vp"
+    fresco:actualImageScaleType="fitCenter"/>
 ```
 
-在代码中find该组件。
+Find the component in the code.
 
 ```java
-FrescoZoomImageView frescoImageView = (FrescoZoomImageView)findViewById(R.id.fiv);
+FrescoImageView frescoImageView = (FrescoImageView) findComponentById(ResourceTable.Id_fiv);
 ```
 
-###加载网络图片
+### Load network pictures
 
-调用void loadView(String url, int defaultResID)方法。
+Call the void loadView(String url, int defaultResID) method.
 
-url表示需要加载的网络图片地址，defaultResID表示占位图（默认图）。
+url represents the address of the network image that needs to be loaded, and defaultResID represents the placeholder image (default image).
 
 ```java
-frescoImageView.loadView(mImgUrl,R.mipmap.ic_launcher);
+frescoImageView.loadView(mImgUrl, ResourceTable.Media_icon);
 ```
 
-如果需要先显示默认图，然后加载显示一张低分辨率的图，最后再显示原图，可以使用void loadView(String lowUrl ,String url, int defaultResID)方法，lowUrl表示低分辨率图片地址。
+If you need to display the default image first, then load and display a low-resolution image, and finally display the original image, you can use the void loadView(String lowUrl ,String url, int defaultResID) method, and lowUrl represents the low-resolution image address.
 
-###加载本地图片
+### Load project resources
 
-调用void loadLocalImage(String path, int defaultRes)方法。
-
-path表示本地图片的绝对路径。
+Choose any of the above methods and fill in the non-defaultResId parameter as null.
 
 ```java
-frescoImageView.loadLocalImage(path,R.mipmap.ic_launcher);
+frescoImageView.loadLocalImage(null,ResourceTable.Media_icon);
 ```
 
-###加载项目资源
+### Click to listen
 
-选择以上任意一个方法，非defaultResId参数填写为null即可。
+If you are using FrescoZoomImageView, you need to call the setOnDraweeClickListener(OnClickListener l) method to set up the click event listener.
 
-```java
-frescoImageView.loadLocalImage(null,R.mipmap.ic_launcher);
-```
+If you are using FrescoImageView, you can directly use setOnClicklistener(OnClickListener l).
 
-###点击监听
+### Turn on and off gif animation
 
-如果你使用的是FrescoZoomImageView，则需要调用setOnDraweeClickListener(OnClickListener l)方法来设置点击事件的监听。
+If your picture is of gif type, we can control the Gif animation of FrescoImageView, which is controlled by setAnim(boolean anim) of FrescoImageView. By default, we turn on animation.
 
-如果你使用的是FrescoImageView，则可以直接使用setOnClicklistener(OnClickListener l)。
+### Set the circle
 
-###开启和关闭gif动画
-
-如果你的图片是gif类型的，则我们可以控制FrescoImageView的Gif动画，通过FrescoImageView的setAnim(boolean anim)来控制，默认情况下，我们是开启动画的。
-
-###设置圆形
-
-如果你需要将显示的图片变为圆形，则可以通过asCircle()方法。
+If you need to turn the displayed picture into a circle, you can use the asCircle() method.
 
 ```java
 frescoImageView.asCircle();
 ```
 
-###Gif图片设置为圆形
+### Gif picture is set as a circle
 
-由于Fresco的原因，如果你需要将gif设置为圆形，则需要使用setCircle(int overlay_color)方法，overlay_color为背景图颜色。
+Due to Fresco, if you need to set the gif to a circle, you need to use the setCircle(int overlay_color) method, and overlay_color is the background image color.
 
 ```java
 frescoImageView.setCircle(Color.WHITE);
 ```
 
-###设置圆角
+### Set rounded corners
 
-通过setCornerRadius(float radius)方法，并传入需要的角度即可实现圆角和边角的切割。
+Through the setCornerRadius(float radius) method, and pass in the required angle, the rounded corners and corners can be cut.
 
 ```java
 frescoImageView.setCornerRadius(10);
 ```
 
-###设置图像处理器
+### Set up the image processor
 
-你可能需要对图片做额外的处理，那么你可以编写一个Fresco的PostProcessor，并通过setPostProcessor(PostProcessor)方法来设置一个处理器。
+You may need to do additional processing on the picture, then you can write a Fresco PostProcessor and set a processor through the setPostProcessor(PostProcessor) method.
 
 ```java
 frescoImageView.setPostProcessor(postProcessor);
 ```
 
-###设置是否点击重试加载
+### Set whether to click to retry loading
 
-有时候图片会加载失败，这时候你可以设置是否允许让用户点击该图片重试加载，通过setTapToRetryEnabled(boolean tapToRetryEnabled)方法来设置。
+Sometimes the picture will fail to load. At this time, you can set whether to allow the user to click on the picture to retry the load. SetTapToRetryEnabled(boolean tapToRetryEnabled) method.
 
 ```java
 frescoImageView.setTapToRetryEnabled(true);
 ```
 
-###设置图片边框
+### Set picture border
 
-通过setBorder(int color, float width)方法来设置。
+Set by the setBorder(int color, float width) method.
 
 ```java
 frescoImageView.setBorder(Color.BLACK, 3.0f);
 ```
 
-###清除图片圆角属性
+### Clear image fillet attributes
 
-也许你曾经设置过图片的圆角属性了，通过clearRoundingParams()方法可以清除他们来恢复到初始状态。
+Maybe you have set the rounded corner properties of the picture, you can clear them through the clearRoundingParams() method to restore to the initial state.
 
 ```java
 frescoImageView.clearRoundingParams();
 ```
 
-###设置加载监听
+### Set up loading monitor
 
-有时候我们想监听图片加载的情况，通过setControllerListener(ControllerListener controllerListener)方法可以添加监听。
+Sometimes we want to monitor the picture loading situation, through the setControllerListener (ControllerListener controllerListener) method can add monitoring.
 
-通过ControllerListener controllerListener = new BaseControllerListener()可以创建监听器。
+You can create a listener by ControllerListener controllerListener = new BaseControllerListener().
 
 ```java
 frescoImageView.setControllerListener(controllerListener);
 ```
 
-###其他
+### Other
 
-FrescoImageView基于Fresco封装，因此Fresco的用法同样适用于FrescoImageView。
+FrescoImageView is based on the Fresco package, so the usage of Fresco is also applicable to FrescoImageView.
 
-同样，FrescoZoomImageView也支持以上说的api和Fresco的方法。
-
-具体请看Fresco：[Fresco的Github](https://github.com/facebook/fresco)
-
-## Developed By
-
- * Linhonghong - <linhh90@163.com>
-
-##License
-Copyright 2016 LinHongHong
-
-Licensed under the Apache License, Version 2.0 (the "License");
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
-
-   http://www.apache.org/licenses/LICENSE-2.0
-
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.
+Similarly, FrescoZoomImageView also supports the api and Fresco methods mentioned above.
