@@ -70,6 +70,16 @@ frescoImageView.loadView(mImgUrl, ResourceTable.Media_icon);
 
 If you need to display the default image first, then load and display a low-resolution image, and finally display the original image, you can use the void loadView(String lowUrl ,String url, int defaultResID) method, and lowUrl represents the low-resolution image address.
 
+### Load network GIFs.
+
+Call the void loadGifView(String url) method.
+
+url represents the address of the network GIF that needs to be loaded.
+
+```java
+frescoImageView.loadGifView(mGifUrl);
+```
+
 ### Load project resources
 
 Choose any of the above methods and fill in the non-defaultResId parameter as null.
